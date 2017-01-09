@@ -103,7 +103,7 @@ module Definition =
                 CylinderGeometry
             ]
             Namespace "WebSharper.Community.Threejs.Resources" [
-                Resource "Treejs1" "https://ajax.googleapis.com/ajax/libs/threejs/r83/three.js"
+                Resource "ExtTreeJs" "https://ajax.googleapis.com/ajax/libs/threejs/r83/three.js"
                 |> fun r -> r.AssemblyWide()
             ]
         ]
