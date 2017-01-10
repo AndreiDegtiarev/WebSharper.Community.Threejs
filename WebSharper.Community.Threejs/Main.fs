@@ -31,8 +31,10 @@ module Definition =
                                         Constructor (T<int> * T<double>)
                                         Constructor (T<int> * T<double> * T<double> * T<double>)
                                        ]
+    let Camera = Class "THREE.Camera"
+                 |=> Inherits Object3D
     let PerspectiveCamera = Class "THREE.PerspectiveCamera"
-                            |=> Inherits Object3D
+                            |=> Inherits Camera
                             |+> Static [Constructor (T<double> * T<double> * T<double> * T<double>)]
     let Fog = Class "THREE.Fog" 
                             |+> Static [Constructor ( T<int> * T<double>* T<double>)]
@@ -54,9 +56,7 @@ module Definition =
     let Scene = Class "THREE.Scene"
                 |=> Inherits Object3D
                 |+> Static [Constructor (T<unit>)]
-                |+> Instance [
-                                "fog" =@ Fog.Type
-                             ]
+                |+> Instance ["fog" =@ Fog.Type]
 
     let AxisHelper = Class "THREE.AxisHelper"
                      |=> Inherits Object3D
@@ -81,6 +81,10 @@ module Definition =
                 |=> Inherits Object3D
                 |+> Static [Constructor (Geometry.Type * Material.Type)]
 
+    let OrbitControls = Class "THREE.OrbitControls"
+                        |+> Static [Constructor (Camera.Type * T<Dom.Node>)]
+                        |+> Instance ["update" => T<unit> ^-> T<unit>]
+
     let Assembly =
         Assembly [
             Namespace "WebSharper.Community.Threejs" [
@@ -88,6 +92,7 @@ module Definition =
                 Object3D
                 PointLight
                 DirectionalLight
+                Camera
                 PerspectiveCamera
                 Fog
                 MaterialProp
@@ -101,9 +106,12 @@ module Definition =
                 Geometry
                 BoxGeometry
                 CylinderGeometry
+                OrbitControls
             ]
             Namespace "WebSharper.Community.Threejs.Resources" [
                 Resource "ExtTreeJs" "https://ajax.googleapis.com/ajax/libs/threejs/r83/three.js"
+                |> fun r -> r.AssemblyWide()
+                Resource "ExtTreeJsOrbitControl" "OrbitControls.js"
                 |> fun r -> r.AssemblyWide()
             ]
         ]

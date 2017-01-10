@@ -47,10 +47,12 @@ module Client =
                                 //renderer.SetClearColor( 0xf0f0f0 );
                                 renderer.SetClearColor(scene.Fog.Color );
                                 renderer.Render( scene, camera )
+                                let controls = new OrbitControls( camera, renderer.DomElement);
 
                                 let rec loop (start:double) (now:double) = 
-                                         mesh.Rotation.X<-mesh.Rotation.X+0.005
-                                         mesh.Rotation.Y<-mesh.Rotation.Y+0.01
+                                         //mesh.Rotation.X<-mesh.Rotation.X+0.005
+                                         //mesh.Rotation.Y<-mesh.Rotation.Y+0.01
+                                         controls.Update()
                                          renderer.Render( scene, camera )
                                          JS.RequestAnimationFrame (fun t -> loop start t) |> ignore 
                                 JS.RequestAnimationFrame (fun t -> loop t t) |> ignore 
