@@ -109,7 +109,7 @@ module Definition =
                 OrbitControls
             ]
             Namespace "WebSharper.Community.Threejs.Resources" [
-                Resource "ExtTreeJs" "https://ajax.googleapis.com/ajax/libs/threejs/r83/three.js"
+                Resource "ExtTreeJs" "three.js"
                 |> fun r -> r.AssemblyWide()
                 Resource "ExtTreeJsOrbitControl" "OrbitControls.js"
                 |> fun r -> r.AssemblyWide()
