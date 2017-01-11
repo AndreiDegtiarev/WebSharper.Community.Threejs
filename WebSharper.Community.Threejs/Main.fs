@@ -36,6 +36,9 @@ module Definition =
     let PerspectiveCamera = Class "THREE.PerspectiveCamera"
                             |=> Inherits Camera
                             |+> Static [Constructor (T<double> * T<double> * T<double> * T<double>)]
+    let OrthographicCamera = Class "THREE.OrthographicCamera"
+                             |=> Inherits Camera
+                             |+> Static [Constructor (T<double> * T<double> * T<double> * T<double> * T<double> * T<double>)]
     let Fog = Class "THREE.Fog" 
                             |+> Static [Constructor ( T<int> * T<double>* T<double>)]
                             |+> Instance [
@@ -68,7 +71,7 @@ module Definition =
                                         "setSize" => T<double> * T<double> ^-> T<unit>
                                         "setClearColor" => T<int> ^-> T<unit>
                                         "domElement" =@ T<Dom.Node>
-                                        "render" => Scene.Type * PerspectiveCamera.Type ^-> T<unit>
+                                        "render" => Scene.Type * Camera.Type ^-> T<unit>
                                       ]
     let Geometry = Class "Geometry"
     let BoxGeometry = Class "THREE.BoxGeometry"
@@ -84,6 +87,9 @@ module Definition =
     let OrbitControls = Class "THREE.OrbitControls"
                         |+> Static [Constructor (Camera.Type * T<Dom.Node>)]
                         |+> Instance ["update" => T<unit> ^-> T<unit>]
+    let TrackballControls = Class "THREE.TrackballControls"
+                            |+> Static [Constructor (Camera.Type * T<Dom.Node>)]
+                            |+> Instance ["update" => T<unit> ^-> T<unit>]
 
     let Assembly =
         Assembly [
@@ -93,6 +99,7 @@ module Definition =
                 PointLight
                 DirectionalLight
                 Camera
+                OrthographicCamera
                 PerspectiveCamera
                 Fog
                 MaterialProp
@@ -107,11 +114,14 @@ module Definition =
                 BoxGeometry
                 CylinderGeometry
                 OrbitControls
+                TrackballControls
             ]
             Namespace "WebSharper.Community.Threejs.Resources" [
                 Resource "ExtTreeJs" "three.js"
                 |> fun r -> r.AssemblyWide()
                 Resource "ExtTreeJsOrbitControl" "OrbitControls.js"
+                |> fun r -> r.AssemblyWide()
+                Resource "ExtTreeJsTrackballControl" "TrackballControls.js"
                 |> fun r -> r.AssemblyWide()
             ]
         ]

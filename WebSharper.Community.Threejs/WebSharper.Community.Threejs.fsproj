@@ -58,6 +58,7 @@
     <Compile Include="Main.fs" />
     <EmbeddedResource Include="Scripts\three.js" />
     <EmbeddedResource Include="Scripts\Controls\OrbitControls.js" />
+    <EmbeddedResource Include="Scripts\Controls\TrackballControls.js" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
